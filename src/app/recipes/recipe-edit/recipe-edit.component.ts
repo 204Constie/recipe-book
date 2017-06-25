@@ -13,6 +13,7 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  recipeId: number;
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
@@ -31,13 +32,10 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']);
-    if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+     if (this.editMode) {
+      let newRecipe = this.recipeForm.value;
+      newRecipe._id = this.recipeId;
+      this.recipeService.updateRecipe(this.id, newRecipe);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value)
     }
@@ -72,9 +70,11 @@ export class RecipeEditComponent implements OnInit {
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
+      this.recipeId = recipe._id;
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
+
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           recipeIngredients.push(

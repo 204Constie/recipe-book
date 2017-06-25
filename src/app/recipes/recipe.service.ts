@@ -71,6 +71,15 @@ export class RecipeService {
   updateRecipe(index: number, newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
+
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let myUrl = 'http://localhost:3000/api/recipes/'+newRecipe._id;
+
+    return this.http.post(myUrl, JSON.stringify(newRecipe), options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+      .subscribe((response) => console.log("recipe added/edited"));
   }
 
   deleteRecipe(index: number) {
