@@ -82,8 +82,16 @@ export class RecipeService {
       .subscribe((response) => console.log("recipe added/edited"));
   }
 
-  deleteRecipe(index: number) {
+  deleteRecipe(index: number, recipeId: number) {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
+
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let myUrl = 'http://localhost:3000/api/recipes/'+ recipeId;
+
+    return this.http.delete(myUrl, options)
+      .map((res: Response) => this.recipes = res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 }
