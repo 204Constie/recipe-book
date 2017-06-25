@@ -4,6 +4,8 @@ import { Subject } from 'rxjs/Subject';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class RecipeService {
@@ -27,7 +29,7 @@ export class RecipeService {
       ])
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService, private http: Http) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
@@ -49,6 +51,14 @@ export class RecipeService {
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let myUrl = 'localhost:3000/api/recipes/create';
+
+    return this.http.post(myUrl, JSON.stringify(recipe), options)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+      .subscribe((response) => console.log("recipe added/edited"));
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
