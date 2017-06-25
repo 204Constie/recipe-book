@@ -53,7 +53,7 @@ export class RecipeService {
     this.recipesChanged.next(this.recipes.slice());
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    let myUrl = 'localhost:3000/api/recipes/create';
+    let myUrl = 'http://localhost:3000/api/recipes/create';
 
     return this.http.post(myUrl, JSON.stringify(recipe), options)
       .map((res: Response) => res.json())
