@@ -11,7 +11,7 @@ import {Observable} from "rxjs";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
+/*  private recipes: Recipe[] = [
     new Recipe(
       'Tasty Schnitzel',
       'A super-tasty Schnitzel - just awesome!',
@@ -27,7 +27,8 @@ export class RecipeService {
         new Ingredient('Buns', 2),
         new Ingredient('Meat', 1)
       ])
-  ];
+  ];*/
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService, private http: Http) {}
 
@@ -37,7 +38,13 @@ export class RecipeService {
   }
 
   getRecipes() {
-    return this.recipes.slice();
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let myUrl = 'http://localhost:3000/api/recipes/';
+
+    return this.http.get(myUrl, options)
+      .map((res: Response) => this.recipes = res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getRecipe(index: number) {
