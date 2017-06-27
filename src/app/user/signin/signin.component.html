@@ -1,0 +1,15 @@
+<!--username: req.body.username,-->
+<!--password: req.body.password,-->
+<!--firstname: req.body.firstname,-->
+<!--lastname: req.body.lastname,-->
+<!--email: req.body.email,-->
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <input type="text" name="username" ngModel required placeholder="username">
+  <input type="password" name="password" ngModel required placeholder="password">
+  <input type="text" name="firstname" ngModel required placeholder="first name">
+  <input type="text" name="lastname" ngModel required placeholder="last name">
+  <input type="email" name="email" ngModel required placeholder="email">
+
+  <button type="submit" [disabled]="!f.form.valid">Submit</button>
+</form>

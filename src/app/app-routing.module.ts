@@ -7,6 +7,9 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import {LandingpageComponent} from "./landingpage/landingpage.component";
+import { LoginComponent } from './user/login/login.component';
+import { SigninComponent } from './user/signin/signin.component';
+import { AuthGuard } from './user/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -16,7 +19,9 @@ const appRoutes: Routes = [
     { path: ':id', component: RecipeDetailComponent },
     { path: ':id/edit', component: RecipeEditComponent },
   ] },
-  { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'shopping-list', component: ShoppingListComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent},
+  { path: 'signin', component: SigninComponent}
 ];
 
 @NgModule({

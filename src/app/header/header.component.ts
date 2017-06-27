@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
+
+
 import { ServerService } from '../server.service';
+import { UserService } from '../user/user.service';
 // import { Recipe } from '../recipes/recipe.model';
 
 @Component({
@@ -9,15 +12,23 @@ import { ServerService } from '../server.service';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-	constructor(private serverService: ServerService){}
+	constructor() {
+  }
 
-	onSave(){
-		this.serverService.saveRecipes().subscribe(
-			(response) => console.log(response),
-			(error) => console.log(error)
-		);
-	}
-	onFetch(){
-		this.serverService.fetchRecipes();
-	}
+	// onSave(){
+	// 	this.serverService.saveRecipes().subscribe(
+	// 		(response) => console.log(response),
+	// 		(error) => console.log(error)
+	// 	);
+	// }
+	// onFetch(){
+	// 	this.serverService.fetchRecipes();
+	// }
+
+	// onSignIn(){
+  //
+  // }
+  // onLogin(){
+  //
+  // }
 }
