@@ -13,6 +13,7 @@ import { AuthGuard } from '../../user/auth.guard';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+  authguard: Boolean;
 
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,

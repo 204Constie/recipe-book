@@ -1,8 +1,14 @@
 
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-  <input type="text" name="username" ngModel required placeholder="username">
-  <input type="password" name="password" ngModel required placeholder="password">
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" name="username" id="username" ngModel required placeholder="enter username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" name="password" id="password" ngModel required placeholder="enter password">
+  </div>
+    <button type="submit" class="btn btn-default" [disabled]="!f.form.valid">Submit</button>
 
-  <button type="submit" [disabled]="!f.form.valid">Submit</button>
 </form>
 

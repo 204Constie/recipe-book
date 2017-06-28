@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
 
@@ -10,7 +11,9 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,11 +25,15 @@ export class SigninComponent implements OnInit {
     if(f.valid){
       this.userService.addUser(f.value).subscribe(
         (response) => {
-          console.log('response: ', response);
-          this.authService.token = response.token;
+          let json = response.json();
+          console.log('response: ', json);
+          if(json.success){
+            this.router.navigate(['login']);
+          }
         },
         (error) => console.log('error: ', error)
       )
     }
   }
+
 }
