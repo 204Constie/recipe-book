@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { AuthGuard } from '../../user/auth.guard';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -15,10 +16,12 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private authGuard: AuthGuard) {
   }
 
   ngOnInit() {
+    this.authguard = this.authGuard.canActivate();
     this.route.params
       .subscribe(
         (params: Params) => {
