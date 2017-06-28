@@ -25,6 +25,7 @@ import { LoginComponent } from './user/login/login.component';
 import { SigninComponent } from './user/signin/signin.component';
 import { AuthService } from './user/auth.service';
 import { AuthGuard } from './user/auth.guard';
+import { ShoppingExecComponent } from './shopping-list/shopping-exec/shopping-exec.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AuthGuard } from './user/auth.guard';
     LandingpageComponent,
     UserComponent,
     LoginComponent,
-    SigninComponent
+    SigninComponent,
+    ShoppingExecComponent
   ],
   imports: [
     BrowserModule,
