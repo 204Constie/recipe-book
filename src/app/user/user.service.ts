@@ -23,6 +23,6 @@ export class UserService {
   loginUser = function(data){
     console.log('adduser');
     //http://localhost:3000/api/users/create
-    return this.http.post('http://localhost:3000/api/users/login', data);
+    return this.http.post('http://localhost:3000/api/auth/signin', data);
   }
 }

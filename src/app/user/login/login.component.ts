@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
+import {User} from "../user.model";
 
 @Component({
   selector: 'app-login',
@@ -16,28 +17,36 @@ export class LoginComponent implements OnInit {
               private authService: AuthService
               ) { }
 
+  showError: boolean;
+
   ngOnInit() {
+    this.showError = false;
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  // false
+    // console.log(f.value);  // { first: '', last: '' }
+    // console.log(f.valid);  // false
     if(f.valid){
       this.userService.loginUser(f.value).subscribe(
         (response) => {
-          console.log('response: ', response.json());
+          // console.log('RESPONSE ALL', response.json());
           let json = response.json();
-          console.log('response.token: ', json.token);
-          this.authService.token = json.token;
-          if(json.success){
-            this.router.navigate(['/']);
+          if (json.success == false) {
+            this.showError = true;
+            console.log("ERROR, couldn't log in")
+          } else {
+            console.log('response.token: ', json.token);
+            console.log('RESPONSE USER: ', json.user);
+            this.authService.token = json.token;
+            let user = json.user as User;
+            this.authService.setUser(user);
+            if(json.success){
+              this.router.navigate(['/']);
+            }
           }
-
         },
         (error) => console.log('error: ', error)
       )
-
-
     }
   }
 

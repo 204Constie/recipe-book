@@ -3,15 +3,28 @@
  */
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import {User} from "./user.model";
 
 @Injectable()
 export class AuthService {
   public token: string = '';
+  private user: User;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+    this.user = null;
+  }
 
   logout() {
     this.token = '';
+    this.user = null;
+  }
+
+  setUser(user: User) {
+    this.user = user;
+  }
+
+  getUser() {
+    return this.user;
   }
 
   createAuthorizationHeader(headers: Headers) {
