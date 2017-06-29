@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { AuthGuard } from '../../user/auth.guard';
+import {AuthService} from "../../user/auth.service";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,7 +19,9 @@ export class RecipeDetailComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
               private router: Router,
-              private authGuard: AuthGuard) {
+              private authGuard: AuthGuard,
+              private authService: AuthService
+  ) {
   }
 
   ngOnInit() {
@@ -30,6 +33,10 @@ export class RecipeDetailComponent implements OnInit {
           this.recipe = this.recipeService.getRecipe(this.id);
         }
       );
+  }
+
+  canEdit() {
+    return this.authService.getUser().username == this.recipe.user.username;
   }
 
   onAddToShoppingList() {
