@@ -37,13 +37,14 @@
         <li routerLinkActive="active">
           <a routerLink="/recipes">Recipes</a>
         </li>
-        <li routerLinkActive="active">
+        <li *ngIf="isUserLoggedIn()" routerLinkActive="active">
           <a routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li routerLinkActive="active"><a routerLink="/signin"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li routerLinkActive="active"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li *ngIf="!isUserLoggedIn()" routerLinkActive="active"><a routerLink="/signin"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li *ngIf="!isUserLoggedIn()" routerLinkActive="active"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li *ngIf="isUserLoggedIn()" routerLinkActive="active"><a style="cursor: pointer;" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>

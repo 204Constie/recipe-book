@@ -5,6 +5,8 @@ import { Response } from '@angular/http';
 
 import { ServerService } from '../server.service';
 import { UserService } from '../user/user.service';
+import {AuthService} from "../user/auth.service";
+import {Router} from "@angular/router";
 // import { Recipe } from '../recipes/recipe.model';
 
 @Component({
@@ -12,7 +14,16 @@ import { UserService } from '../user/user.service';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-	constructor() {
+	constructor(private authService: AuthService, private router: Router) {
+  }
+
+  isUserLoggedIn() {
+	  return this.authService.isUserLoggedIn();
+  }
+
+  logout() {
+	  this.authService.logout();
+	  this.router.navigateByUrl('/');
   }
 
 	// onSave(){
