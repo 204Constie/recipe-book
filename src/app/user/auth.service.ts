@@ -10,10 +10,6 @@ export class AuthService {
 
   constructor(private http: Http) {}
 
-  isUserLoggedIn() {
-    return this.token != '';
-  }
-
   logout() {
     this.token = '';
   }
